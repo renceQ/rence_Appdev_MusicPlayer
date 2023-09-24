@@ -54,6 +54,25 @@
          color: #fff;
      }
     </style>
+    <style>
+    /* Your existing styles */
+
+    .add-to-playlist {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .add-to-playlist:hover {
+        background-color: #0056b3;
+    }
+</style>
+
 </head>
 <body>
 
@@ -166,7 +185,7 @@
             <a href="javascript:void(0);" class="play-music" data-src="<?= base_url($music['file_path']) ?>">
                 <?= $music['file_name'] ?>
             </a>
-            <button class="add-to-playlist" data-music="<?= $music['id'] ?>">+</button>
+            <button type="button" class="add-to-playlist" data-music="<?= $music['id'] ?>">+</button>
         </li>
     <?php endforeach; ?>
     </ul>
