@@ -27,14 +27,28 @@ class MusicController extends BaseController
 
         return redirect()->to('/');
     }
-
-    public function getPlaylists()
+    public function getPlaylist($playlistID)
     {
         $playlistModel = new PlaylistModel();
-        $playlists = $playlistModel->findAll();
-
-        return $this->response->setJSON($playlists);
+        $playlist = $playlistModel->find($playlistID);
+    
+        if (!$playlist) {
+            return $this->response->setJSON(['error' => 'Playlist not found']);
+        }
+    
+        $playlistMusicModel = new PlaylistMusicModel();
+        $musicTrackIDs = $playlistMusicModel->where('playlist_id', $playlistID)->findAll();
+    
+        if (empty($musicTrackIDs)) {
+            return $this->response->setJSON(['error' => 'No music tracks in this playlist']);
+        }
+    
+        $musicModel = new MusicModel();
+        $musicTracks = $musicModel->whereIn('id', array_column($musicTrackIDs, 'music_track_id'))->findAll();
+    
+        return $this->response->setJSON(['playlist' => $playlist, 'musicTracks' => $musicTracks]);
     }
+    
 
     public function uploadMusic()
 {

@@ -152,9 +152,11 @@
     </div>
 </div>
 
-
-
+<div id="current-music-name" style= "margin-top: 20px;"></div>
     <audio id="audio" controls autoplay></audio>
+    <div class="container" id="selected-playlist-container">
+    <!-- Playlist tracks will be displayed here -->
+</div>
 
     
 <div class="container" id="playlist-container">
@@ -337,42 +339,46 @@ $(document).ready(function () {
 });
 </script>
 <script>
-    const audio = document.getElementById('audio');
-    const playlistItems = document.querySelectorAll('.play-music');
+   const audio = document.getElementById('audio');
+const playlistItems = document.querySelectorAll('.play-music');
+const currentMusicName = document.getElementById('current-music-name');
 
-    let currentTrack = 0;
+let currentTrack = 0;
 
-    function playTrack(trackIndex) {
-        if (trackIndex >= 0 && trackIndex < playlistItems.length) {
-            const track = playlistItems[trackIndex];
-            const trackSrc = track.getAttribute('data-src');
-            audio.src = trackSrc;
-            audio.play();
-            currentTrack = trackIndex;
-        }
+function playTrack(trackIndex) {
+    if (trackIndex >= 0 && trackIndex < playlistItems.length) {
+        const track = playlistItems[trackIndex];
+        const trackSrc = track.getAttribute('data-src');
+        audio.src = trackSrc;
+        audio.play();
+        currentTrack = trackIndex;
+        // Set the current music name
+        currentMusicName.textContent = track.innerText;
     }
+}
 
-    function nextTrack() {
-        currentTrack = (currentTrack + 1) % playlistItems.length;
-        playTrack(currentTrack);
-    }
-
-    function previousTrack() {
-        currentTrack = (currentTrack - 1 + playlistItems.length) % playlistItems.length;
-        playTrack(currentTrack);
-    }
-
-    playlistItems.forEach((item, index) => {
-        item.addEventListener('click', () => {
-            playTrack(index);
-        });
-    });
-
-    audio.addEventListener('ended', () => {
-        nextTrack();
-    });
-
+function nextTrack() {
+    currentTrack = (currentTrack + 1) % playlistItems.length;
     playTrack(currentTrack);
+}
+
+function previousTrack() {
+    currentTrack = (currentTrack - 1 + playlistItems.length) % playlistItems.length;
+    playTrack(currentTrack);
+}
+
+playlistItems.forEach((item, index) => {
+    item.addEventListener('click', () => {
+        playTrack(index);
+    });
+});
+
+audio.addEventListener('ended', () => {
+    nextTrack();
+});
+
+playTrack(currentTrack);
+
 </script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -426,49 +432,40 @@ $(document).ready(function () {
 </script>
 <script>
 $(document).ready(function () {
+    // Add a click event listener to playlist links
     $('.playlist-link').on('click', function () {
         const playlistID = $(this).data('playlist-id');
-        const playlistName = $(this).text();
-
-        // Load the music from the selected playlist and update the selected-playlist-container
-        loadPlaylist(playlistID, playlistName);
-    });
-
-    function loadPlaylist(playlistID, playlistName) {
+        
+        // Send an AJAX request to fetch playlist details
         $.ajax({
             type: 'POST',
-            url: '/music/getPlaylistMusic', // Update the route accordingly
-            data: {
-                playlistID: playlistID,
-            },
+            url: '<?= site_url('music/getPlaylist') ?>/' + playlistID,
             success: function (response) {
-                // Handle the response to update the selected-playlist-container
-                const musicList = JSON.parse(response);
-
-                // Update the selected-playlist-container
-                const selectedPlaylistContainer = document.getElementById('selected-playlist-container');
-                selectedPlaylistContainer.innerHTML = ''; // Clear the current content
-                selectedPlaylistContainer.innerHTML = '<h1>Playlist: ' + playlistName + '</h1>'; // Update the title
-
-                musicList.forEach(function (track) {
-                    // Create a new list item for each music track
-                    const li = document.createElement('li');
-                    li.innerHTML = '<a href="javascript:void(0);" class="play-music" data-src="' + track.file_path + '">' + track.file_name + '</a>';
-                    li.innerHTML += '<button class="add-to-playlist" data-music="' + track.id + '">+</button>';
-                    selectedPlaylistContainer.appendChild(li);
-                });
-
-                // Add click event listeners to play the selected music
-                const playlistItems = selectedPlaylistContainer.querySelectorAll('.play-music');
-                playlistItems.forEach(function (item, index) {
-                    item.addEventListener('click', function () {
-                        playTrack(index);
-                    });
-                });
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    // Update the #playlist-details container with the fetched data
+                    $('#playlist-details').html(renderPlaylist(response.playlist, response.musicTracks));
+                }
             },
         });
+    });
+
+    // Function to render the playlist details
+    function renderPlaylist(playlist, musicTracks) {
+        let html = '<h1>Playlist: ' + playlist.name + '</h1>';
+        html += '<ul id="playlist">';
+        musicTracks.forEach(function (track) {
+            html += '<li>';
+            html += '<a href="javascript:void(0);" class="play-music" data-src="' + track.file_path + '">' + track.file_name + '</a>';
+            html += '<button class="add-to-playlist" data-music="' + track.id + '">+</button>';
+            html += '</li>';
+        });
+        html += '</ul>';
+        return html;
     }
 });
+
 </script>
 </body>
 </html>
