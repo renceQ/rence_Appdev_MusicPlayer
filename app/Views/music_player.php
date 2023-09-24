@@ -111,20 +111,21 @@
 
 
 
+<form id="search-form">
+    <input type="search" id="search-input" placeholder="Search for a song">
+    <button type="button" id="search-button" class="btn btn-primary">Search</button>
+</form>
+<ul id="playlist">
+    <!-- Your existing playlist items will be displayed here -->
+</ul>
 
-  <form action="/" method="get">
-    <input type="search" name="search" placeholder="search song">
-    <button type="submit" class="btn btn-primary">search</button>
-  </form>
 
 
     <h1>Music Player</h1>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">My Playlist</button>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadMusic">Upload Music</button>
 
-
-<!-- Modal for uploading music -->
-<div class="modal fade" id="uploadMusic" tabindex="-1" aria-labelledby="uploadMusicLabel" aria-hidden="true">
+    <div class="modal fade" id="uploadMusic" tabindex="-1" aria-labelledby="uploadMusicLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -136,6 +137,10 @@
                     <div class="form-group">
                         <label for="musicFile">Choose Music File (MP3)</label>
                         <input type="file" class="form-control-file" id="musicFile" name="musicFile" accept=".mp3" required>
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <input type="text" class="form-control" id="musicName" name="musicName" placeholder="Enter the file name" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -191,6 +196,47 @@
 </div>
 </div>
 
+
+<script>
+    $(document).ready(function () {
+        const playlistItems = document.querySelectorAll('.play-music');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const playlistContainer = document.getElementById('playlist');
+
+        searchButton.addEventListener('click', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            playlistItems.forEach((item) => {
+                const musicName = item.innerText.toLowerCase();
+
+                if (musicName.includes(searchTerm)) {
+                    item.parentElement.style.display = 'block';
+                } else {
+                    item.parentElement.style.display = 'none';
+                }
+            });
+        });
+
+        // Add a listener to reset the list when the search input is cleared
+        searchInput.addEventListener('input', function () {
+            if (searchInput.value === '') {
+                playlistItems.forEach((item) => {
+                    item.parentElement.style.display = 'block';
+                });
+            }
+        });
+
+        // Add a listener to reset the list when a song is chosen
+        playlistItems.forEach((item) => {
+            item.addEventListener('click', function () {
+                playlistItems.forEach((item) => {
+                    item.parentElement.style.display = 'block';
+                });
+            });
+        });
+    });
+</script>
 
 
 <script>

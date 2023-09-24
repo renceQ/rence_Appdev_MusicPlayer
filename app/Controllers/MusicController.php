@@ -37,26 +37,28 @@ class MusicController extends BaseController
     }
 
     public function uploadMusic()
-    {
-        $musicModel = new MusicModel();
+{
+    $musicModel = new MusicModel();
 
-        $file = $this->request->getFile('musicFile'); 
+    $file = $this->request->getFile('musicFile');
+    $customFileName = $this->request->getPost('musicName'); // Get the custom file name
 
-        if ($file->isValid() && $file->getClientExtension() === 'mp3') {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . 'public/uploads', $newName); 
+    if ($file->isValid() && $file->getClientExtension() === 'mp3') {
+        $newName = $file->getRandomName();
+        $file->move(ROOTPATH . 'public/uploads', $newName);
 
-          
-            $musicModel->insert([
-                'file_name' => $newName,
-                'file_path' => 'uploads/' . $newName,
-            ]);
+        // Save the custom file name and file path to the database
+        $musicModel->insert([
+            'file_name' => $customFileName, // Save the custom file name
+            'file_path' => 'uploads/' . $newName,
+        ]);
 
-            return redirect()->to('/')->with('success', 'Music uploaded successfully');
-        } else {
-            return redirect()->to('/music')->with('error', 'Invalid or unsupported file format');
-        }
+        return redirect()->to('/')->with('success', 'Music uploaded successfully');
+    } else {
+        return redirect()->to('/music')->with('error', 'Invalid or unsupported file format');
     }
+}
+
     public function addToPlaylist()
     {
         $musicID = $this->request->getPost('musicID');
