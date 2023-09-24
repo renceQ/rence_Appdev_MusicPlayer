@@ -1,0 +1,56 @@
+CRITICAL - 2023-09-22 13:32:36 --> Class "App\Models\PlaylistMusicModel" not found
+in APPPATH\Controllers\MusicPlayerController.php on line 82.
+ 1 APPPATH\Controllers\MusicPlayerController.php(15): App\Controllers\MusicPlayerController->getPlaylist()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\MusicPlayerController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MusicPlayerController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 13:39:30 --> Class "App\Controllers\MusicTracksModel" not found
+in APPPATH\Controllers\MusicPlayerController.php on line 83.
+ 1 APPPATH\Controllers\MusicPlayerController.php(15): App\Controllers\MusicPlayerController->getPlaylist()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\MusicPlayerController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MusicPlayerController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 13:57:58 --> Invalid file: "search_results_view.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('search_results_view.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('search_results_view', [], true)
+ 3 APPPATH\Controllers\MusicPlayerController.php(41): view('search_results_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\MusicPlayerController->search()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MusicPlayerController))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 13:58:11 --> Invalid file: "search_results_view.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('search_results_view.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('search_results_view', [], true)
+ 3 APPPATH\Controllers\MusicPlayerController.php(41): view('search_results_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\MusicPlayerController->search()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\MusicPlayerController))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 14:42:47 --> Too few arguments to function CodeIgniter\Router\RouteCollection::__construct(), 0 passed in C:\laragon\www\rence_Appdev_MusicPlayer\app\Config\Routes.php on line 8 and exactly 3 expected
+in SYSTEMPATH\Router\RouteCollection.php on line 285.
+ 1 APPPATH\Config\Routes.php(8): CodeIgniter\Router\RouteCollection->__construct()
+ 2 SYSTEMPATH\Router\RouteCollection.php(339): require('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\app\\Config\\Routes.php')
+ 3 SYSTEMPATH\CodeIgniter.php(787): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 4 SYSTEMPATH\CodeIgniter.php(442): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 14:46:05 --> Interface "CodeIgniter\Routing\RouteCollectionInterface" not found
+in APPPATH\Config\Routes.php on line 8.
+ 1 SYSTEMPATH\Router\RouteCollection.php(339): require()
+ 2 SYSTEMPATH\CodeIgniter.php(787): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 3 SYSTEMPATH\CodeIgniter.php(442): CodeIgniter\CodeIgniter->tryToRouteIt(null)
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\rence_Appdev_MusicPlayer\\public\\index.php')
+CRITICAL - 2023-09-22 14:47:02 --> Cannot declare class Config\Routes, because the name is already in use
+in APPPATH\Config\Routes.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
