@@ -107,6 +107,4 @@ class MusicController extends BaseController
 
     return $this->response->setJSON($musicList);
 }
-
-    
 }
