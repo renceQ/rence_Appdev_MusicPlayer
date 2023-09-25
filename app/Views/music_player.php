@@ -77,7 +77,6 @@
 <body>
 
  <!-- Example Modal -->
-
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -85,19 +84,21 @@
                 <h5 class="modal-title" id="exampleModalLabel">My Playlist</h5>
             </div>
             <div class="modal-body">
-            <ul id="playlist-list">
-                <?php if (isset($playlists) && is_array($playlists)) : ?>
-                    <?php foreach ($playlists as $playlist) : ?>
-                        <li>
-                        <a href="#playlist-<?= $playlist['id'] ?>" class="playlist-link" data-playlist-id="<?= $playlist['id'] ?>"><?= $playlist['name'] ?></a>
-                        </li>
+                <ul id="playlist-list" style="list-style: none; padding: 0;"> <!-- Add inline style here -->
+                    <?php if (isset($playlists) && is_array($playlists)) : ?>
+                        <?php foreach ($playlists as $playlist) : ?>
+                            <li>
+                                <a href="#playlist-<?= $playlist['id'] ?>" class="playlist-link" data-playlist-id="<?= $playlist['id'] ?>">
+                                    <?= $playlist['name'] ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
-                        <?php else : ?>
-                            <li>No playlists available.</li>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
-                    <div class="modal-footer">
+                    <?php else : ?>
+                        <li>No playlists available.</li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+            <div class="modal-footer">
                 <a href="#" data-bs-dismiss="modal">Close</a>
                 <a href="#" data-bs-toggle="modal" data-bs-target="#createPlaylist">Create New</a>
             </div>
