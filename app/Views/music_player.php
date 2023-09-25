@@ -88,9 +88,10 @@
                     <?php if (isset($playlists) && is_array($playlists)) : ?>
                         <?php foreach ($playlists as $playlist) : ?>
                             <li>
-                                <a href="#playlist-<?= $playlist['id'] ?>" class="playlist-link" data-playlist-id="<?= $playlist['id'] ?>">
-                                    <?= $playlist['name'] ?>
-                                </a>
+                            <a href="<?= base_url('playlist/' . $playlist['id']) ?>" class="playlist-link" data-playlist-id="<?= $playlist['id'] ?>">
+    <?= $playlist['name'] ?>
+</a>
+
                             </li>
                         <?php endforeach; ?>
                     <?php else : ?>
@@ -450,7 +451,7 @@ playTrack(currentTrack);
     });
 });
 </script>
-<script>
+<!-- <script>
 $(document).ready(function () {
     // Add a click event listener to playlist links
     $('.playlist-link').on('click', function () {
@@ -486,6 +487,6 @@ $(document).ready(function () {
     }
 });
 
-</script>
+</script> -->
 </body>
 </html>

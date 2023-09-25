@@ -107,4 +107,46 @@ class MusicController extends BaseController
 
     return $this->response->setJSON($musicList);
 }
+public function playlists($playlistID)
+{
+    // Load the necessary models (PlaylistModel and MusicModel) and make the necessary database queries to fetch playlist details and associated music tracks.
+
+    $playlistModel = new PlaylistModel();
+    $musicModel = new MusicModel();
+
+    // Find the playlist by its ID
+    $playlist = $playlistModel->find($playlistID);
+
+    if (!$playlist) {
+        return redirect()->to('/');
+    }
+
+    // Find the music_track_ids associated with the playlist
+    $playlistMusicModel = new PlaylistMusicModel();
+    $musicTrackIDs = $playlistMusicModel->where('playlist_id', $playlistID)->findAll();
+
+    // Initialize an empty array to store music items
+    $music = [];
+
+    // Loop through each music_track_id and find the associated music track
+    foreach ($musicTrackIDs as $musicTrackID) {
+        $musicTrack = $musicModel->find($musicTrackID['music_track_id']);
+
+        if ($musicTrack) {
+            // Add the music_tracks item to the "music" array
+            $music[] = $musicTrack;
+        }
+    }
+
+    // Prepare the data to be passed to the view
+    $data = [
+        'playlist' => $playlist,
+        'musicTracks' => $music,
+    ];
+
+    // Render a view named 'player' and pass the data to it
+    return view('player', $data);
+}
+
+
 }
